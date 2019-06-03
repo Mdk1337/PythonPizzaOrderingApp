@@ -1,8 +1,10 @@
-import tkinter
 from tkinter import *
+from tkinter import messagebox
+import socket
+import pickle
 
 
-def makeAnObject():
+def makeAnObject(): # making an object out of user input
     from pizzaService.Pizza import Pizza
     toppings = []
     if varKetchup.get():
@@ -20,7 +22,16 @@ def makeAnObject():
     else:
         paymentSelected = "PayPal"
     pizza = Pizza(varSize.get(), pizzaTypeList.get(ACTIVE), toppings, paymentSelected, address.get(), phone.get(), noteTextBox.get(1.0,END))
+    sendRequest(pizza)
 
+def sendRequest(pizza): # function that sends an object to the stream and returns the time needed in the messageBox
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((socket.gethostname(), 13337))
+    sock.send(pickle.dumps(pizza)) # using pickle module to serialize Pizza object
+    timeToDeliver = int(sock.recv(2).decode("utf-8")) # getting time from server
+    messagebox.showinfo("Answer from server", f"Hello, you have successfully ordered a pizza!\n"
+    f"It should arrive in {timeToDeliver} minutes.\nThanks for using our app!") # displaying time to deliver in a messagebox
+    sock.close() # closing the socket (connection with server) since it will not be returning anything
 
 
 root = Tk()  # actual window object
