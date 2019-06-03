@@ -1,6 +1,28 @@
 import tkinter
 from tkinter import *
 
+
+def makeAnObject():
+    from pizzaService.Pizza import Pizza
+    toppings = []
+    if varKetchup.get():
+        toppings.append("Ketchup")
+    if varMayonnaise.get():
+        toppings.append("Mayonnaise")
+    if varOregano.get():
+        toppings.append("Oregano")
+
+    paymentSelected = "Cash"
+    if varPayment.get() == 1:
+        paymentSelected = "Check"
+    elif varPayment.get() == 2:
+        paymentSelected = "Credit Card"
+    else:
+        paymentSelected = "PayPal"
+    pizza = Pizza(varSize.get(), pizzaTypeList.get(ACTIVE), toppings, paymentSelected, address.get(), phone.get(), noteTextBox.get(1.0,END))
+
+
+
 root = Tk()  # actual window object
 root.geometry("740x700")  # screen resolution
 
@@ -101,8 +123,7 @@ informationFrame.place(x=270, y=40)  # address, phone and note subframe placemen
 
 personalInfo.place(x=90, y=280, height=255, width=570)  # personal info labelframe end
 
-orderButton = Button(root, text="Send your order    ", compound=RIGHT, bitmap="warning") # order button initialization.
-# MISSING COMMAND FUNCTION
+orderButton = Button(root, text="Send your order    ", compound=RIGHT, bitmap="warning", command=makeAnObject) # order button initialization.
 orderButton.pack(side=BOTTOM,pady=70) # order button placement
 
 topLabel.pack(side=TOP, pady=10)  # top label packing
