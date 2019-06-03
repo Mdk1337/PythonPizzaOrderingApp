@@ -13,6 +13,8 @@ radioPizza25 = Radiobutton(pizzaSize, text="25 cm", variable=varSize, value=25)
 radioPizza32 = Radiobutton(pizzaSize, text="32 cm", variable=varSize, value=32)
 radioPizza50 = Radiobutton(pizzaSize, text="50 cm", variable=varSize, value=50)
 
+radioPizza25.select() # setting the first pizza size option as default
+
 radioPizza25.grid(row=0, column=0, padx=30, pady=5)
 radioPizza32.grid(row=1, column=0, padx=30, pady=5)
 radioPizza50.grid(row=2, column=0, padx=30, pady=5)
@@ -26,6 +28,8 @@ pizzaTypeList.insert(0, "Margarita")
 pizzaTypeList.insert(END, "Funghi")
 pizzaTypeList.insert(END, "Quatro Stagione")
 pizzaTypeList.insert(END, "Vegeteriana")
+
+pizzaTypeList.activate(0) # setting the first pizza type option as default
 
 pizzaTypeList.pack(pady=10, padx=5)
 pizzaType.place(x=250, y=70, height=150, width=200)  # pizza type labelframe end
