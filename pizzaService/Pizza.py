@@ -11,6 +11,33 @@ class Pizza:
     def setTime(self, time):
         self.time = time
 
+    def getSize(self):
+        return self.size
+
+    def getType(self):
+        return self.type
+
+    def getToppings(self):
+        if len(self.toppings) > 0:
+            return self.toppings
+        else:
+            return "No toppings"
+
+    def getPayment(self):
+        return self.payment
+
+    def getAddress(self):
+        return self.address
+
+    def getPhone(self):
+        return self.phoneNum
+
+    def getNote(self):
+        if len(self.note) > 1:
+            return self.note
+        else:
+            return "None"
+
     def getTime(self):
         return self.time
 

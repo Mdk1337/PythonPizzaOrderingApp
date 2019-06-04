@@ -33,17 +33,23 @@ def acceptRequests():
         pizzaList2.insert(END, pizza.__str__())
 
 
-def decreaseTime(delay):
+def decreaseTime(delay=1):
+    """
+    this function decreases timeToDeliver to everyundelivered pizza and calls the updateListBoxes function
+    :param delay: time for refresh delay (default 1 second)
+    """
     while True:
         for i in range(len(pizzas2)):
             if pizzas2[i].getTime() > 0:
                 pizzas2[i].decreaseTime()
         time.sleep(delay)
-        print(f"UPDATE FINISHED: {pizzas2}")
         updateListBoxes()
 
 
 def updateListBoxes():
+    """
+    deleting listbox contents and re-adding it according to the timeToDeliver left
+    """
     pizzaList1.delete(0, END)
     pizzaList2.delete(0, END)
 
@@ -56,7 +62,6 @@ def updateListBoxes():
             pizzas1.append(pizzas2[i])
             pizzas2.pop(i)
             i -= 1
-
 
     for i in range(len(pizzas1)):
         pizzaList1.insert(END, pizzas1[i])

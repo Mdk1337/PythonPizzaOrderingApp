@@ -4,6 +4,25 @@ import socket
 import pickle
 
 
+def checkForData():
+    from pizzaService.Validator import Validator
+
+    message = ""
+    messageAddr = Validator.validateAddress(address.get())
+    messagePhone = Validator.validatePhone(phone.get())
+
+    if messageAddr:
+        message += messageAddr + "\n"
+
+    if messagePhone:
+        message += messagePhone + "\n"
+
+    if message != "":
+        messagebox.showinfo("An error occurred", f"You did not enter:\n{message}")
+    else:
+        makeAnObject()
+
+
 def makeAnObject():
     """
     making an object out of user input
@@ -25,7 +44,11 @@ def makeAnObject():
     else:
         paymentSelected = "PayPal"
     pizza = Pizza(varSize.get(), pizzaTypeList.get(ACTIVE), toppings, paymentSelected, address.get(), phone.get(), noteTextBox.get(1.0,END))
-    sendRequest(pizza)
+
+    if messagebox.askyesno("Are you sure?", f'''You are about to request a following pizza:
+Size: {pizza.getSize()}\nType: {pizza.getType()}\nToppings: {pizza.getToppings()}\nPayment: {pizza.getPayment()}
+Address: {pizza.getAddress()}\nPhone: {pizza.getPhone()}\nNote: {pizza.getNote()}'''):
+        sendRequest(pizza)
 
 def sendRequest(pizza):
     """
@@ -142,7 +165,7 @@ informationFrame.place(x=270, y=40)  # address, phone and note subframe placemen
 
 personalInfo.place(x=90, y=280, height=255, width=570)  # personal info labelframe end
 
-orderButton = Button(root, text="Send your order    ", compound=RIGHT, bitmap="warning", command=makeAnObject) # order button initialization.
+orderButton = Button(root, text="Send your order    ", compound=RIGHT, bitmap="warning", command=checkForData) # order button initialization.
 orderButton.pack(side=BOTTOM,pady=70) # order button placement
 
 topLabel.pack(side=TOP, pady=10)  # top label packing
