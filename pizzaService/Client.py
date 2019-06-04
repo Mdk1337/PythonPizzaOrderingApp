@@ -4,7 +4,10 @@ import socket
 import pickle
 
 
-def makeAnObject(): # making an object out of user input
+def makeAnObject():
+    """
+    making an object out of user input
+    """
     from pizzaService.Pizza import Pizza
     toppings = []
     if varKetchup.get():
@@ -24,7 +27,11 @@ def makeAnObject(): # making an object out of user input
     pizza = Pizza(varSize.get(), pizzaTypeList.get(ACTIVE), toppings, paymentSelected, address.get(), phone.get(), noteTextBox.get(1.0,END))
     sendRequest(pizza)
 
-def sendRequest(pizza): # function that sends an object to the stream and returns the time needed in the messageBox
+def sendRequest(pizza):
+    """
+    function that sends an object to the stream and returns the time needed in the messageBox
+    :param pizza:
+    """
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((socket.gethostname(), 13337))
     sock.send(pickle.dumps(pizza)) # using pickle module to serialize Pizza object
@@ -35,6 +42,7 @@ def sendRequest(pizza): # function that sends an object to the stream and return
 
 
 root = Tk()  # actual window object
+root.title("Client") # naming the window object
 root.geometry("740x700")  # screen resolution
 
 topLabel = Label(root, text="Order your pizza!", font=("Verdana", "20"))  # top label config

@@ -8,6 +8,15 @@ class Pizza:
         self.phoneNum = phoneNum
         self.note = note
 
+    def setTime(self, time):
+        self.time = time
+
+    def getTime(self):
+        return self.time
+
+    def decreaseTime(self):
+        self.time -= 1
+
     def __str__(self):
-        return f"Size:{self.size}, Type:{self.type}, Toppings:{self.toppings}, Payment: {self.payment}, " \
+        return f"Time:{self.time}, Size:{self.size}, Type:{self.type}, Toppings:{self.toppings}, Payment: {self.payment}, " \
             f"Address:{self.address}, Phone:{self.phoneNum}, Note:{self.note}"
